@@ -1,1 +1,37 @@
+import java.util.Scanner;
+import java.util.Random;
 
+public class Main {
+	public static void main(String[] args) {
+    Scanner scnr = new Scanner(System.in);
+    Random random = new Random();
+    
+    int num = random.nextInt(10) + 1;
+    int guesses = 0;
+    int guessed = 0;
+
+    System.out.println("Guess the correct integer between 1 and 10. You have 5 attempts.");
+    
+    while (guessed == 0 && guesses < 5) {
+        int userGuess = scnr.nextInt();
+        
+        if (guessed == 0 & guesses == 4) {
+            System.out.println("Sorry, you've run out of guesses. The correct number was " + num);
+        }
+        
+        else if (userGuess > num) {
+            System.out.println("Too high, try again.");
+        }
+        
+        else if (userGuess < num) {
+            System.out.println("Too low, try again.");
+        }
+        
+        else if (userGuess == num) {
+            System.out.println("Congratulations! You've guessed the correct number.");
+            guessed = 1;
+        }
+        
+        guesses++;
+    }
+}}
