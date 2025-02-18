@@ -35,3 +35,124 @@ public class Automobile implements Comparable<Automobile> {
         return year == other.year && model.equals(other.model) && brand.equals(other.brand);
     }
 }
+
+class Car extends Automobile {
+	
+	public Car(int year, String model, String brand) {
+		super(year, model, brand);
+	}
+
+	public static void accelerate() {
+		System.out.println("The speed of the car is increasing.");
+	}
+
+	public static void stop() {
+		System.out.println("The car has stopped.");
+	}
+	
+	public static void reverse() {
+		System.out.println("The car is moving backwards.");
+	}
+	
+	@Override
+	public String toString() {
+		return "Regular Car:\nYear = " + year + "\nModel = " + model + "\nBrand = " + brand + "\n";
+	}
+}
+
+class SportsCar extends Automobile {
+	
+	public SportsCar(int year, String model, String brand) {
+		super(year, model, brand);
+	}
+
+	public static void accelerate() {
+		System.out.println("The speed of the car is rapidly increasing.");
+	}
+
+	public static void stop() {
+		System.out.println("The car has stopped, leaving tire marks.");
+	}
+	
+	public static void reverse() {
+		System.out.println("The car is moving backwards with haste.");
+	}
+	
+	static void honk() {
+		System.out.println("Beep beep.");
+	}
+	
+	@Override
+	public String toString() {
+		return "Sports Car:\nYear = " + year + "\nModel = " + model + "\nBrand = " + brand + "\n";
+	}
+}
+
+class JunkCar extends Automobile {
+	
+	public JunkCar(int year, String model, String brand) {
+		super(year, model, brand);
+	}
+
+	public static void accelerate() {
+		System.out.println("The speed of the car is barely increasing.");
+	}
+
+	public static void stop() {
+		System.out.println("The car has stopped abruptly.");
+	}
+	
+	public static void reverse() {
+		System.out.println("The car is moving backwards while creaking.");
+	}
+	
+	static void honk() {
+		System.out.println("Low beep.");
+	}
+	
+	@Override
+	public String toString() {
+		return "Junk Car:\nYear = " + year + "\nModel = " + model + "\nBrand = " + brand + "\n";
+	}
+}
+
+class Tester {
+	public static void main(String[] args) {
+	
+		Car car = new Car(2022, "Accord", "Honda");
+		SportsCar sportsCar = new SportsCar(2016, "488 Spider", "Ferrari");
+		JunkCar junkCar = new JunkCar(2014, "Compass", "Jeep");
+		
+		Automobile[] automobiles = {car, sportsCar, junkCar};
+		
+		System.out.println(car.toString());
+		car.accelerate();
+		car.stop();
+		car.reverse();
+		car.honk();
+		System.out.println();
+
+		System.out.println(sportsCar.toString());
+		sportsCar.accelerate();
+		sportsCar.stop();
+		sportsCar.reverse();
+		sportsCar.honk();
+		System.out.println();
+		
+		System.out.println(junkCar.toString());
+		junkCar.accelerate();
+		junkCar.stop();
+		junkCar.reverse();
+		junkCar.honk();
+		
+		System.out.println();
+		System.out.println("Comparing the Honda Accord to the Jeep Compass: " + car.compareTo(junkCar));
+		System.out.println("Comparing the Honda Accord to itself: " + car.compareTo(car));
+		System.out.println("Comparing the Jeep Compass to the Ferrari Spider: " + junkCar.compareTo(sportsCar));
+		System.out.println();
+		
+		System.out.println("Accord equal to Spider = " + car.equals(sportsCar));
+		System.out.println("Compass equal to Compass = " + junkCar.equals(junkCar));
+		System.out.println("Spider equal to Compass = " + sportsCar.equals(junkCar));
+	}
+}
