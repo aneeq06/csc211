@@ -1,0 +1,37 @@
+package myproject;
+
+public class Automobile implements Comparable<Automobile> {
+
+	public int year;
+	public String model;
+	public String brand;
+	
+	public Automobile(int year, String model, String brand) {
+		this.year = year;
+		this.model = model;
+		this.brand = brand;
+	}
+	
+	static void honk() {
+		System.out.println("Beep.");
+	}
+
+	@Override
+    public int compareTo(Automobile other) {
+        if (this.year != other.year) {
+            return Integer.compare(this.year, other.year);
+        }
+        if (!this.brand.equals(other.brand)) {
+            return this.brand.compareTo(other.brand);
+        }
+        return this.model.compareTo(other.model);
+    }
+	
+	@Override
+	public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Automobile other = (Automobile) obj;
+        return year == other.year && model.equals(other.model) && brand.equals(other.brand);
+    }
+}
