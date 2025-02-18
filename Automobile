@@ -17,7 +17,7 @@ public class Automobile implements Comparable<Automobile> {
 	}
 
 	@Override
-    public int compareTo(Automobile other) {
+    	public int compareTo(Automobile other) {
         if (this.year != other.year) {
             return Integer.compare(this.year, other.year);
         }
