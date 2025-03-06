@@ -1,0 +1,40 @@
+package myproject;
+
+public class UserAuthenticator {
+ private static final String VALID_USERNAME = "admin";
+ private static final String VALID_PASSWORD = "password123";
+
+ public boolean authenticate(String username, String password) {
+     return VALID_USERNAME.equals(username) && VALID_PASSWORD.equals(password);
+ }
+}
+
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+public class UserAuthenticatorTest {
+
+    @Test
+    public void testValidCredentials() {
+        UserAuthenticator authenticator = new UserAuthenticator();
+        assertTrue(authenticator.authenticate("admin", "password123"), "Valid credentials should return true");
+    }
+
+    @Test
+    public void testInvalidUsername() {
+        UserAuthenticator authenticator = new UserAuthenticator();
+        assertFalse(authenticator.authenticate("wronguser", "password123"), "Invalid username should return false");
+    }
+
+    @Test
+    public void testInvalidPassword() {
+        UserAuthenticator authenticator = new UserAuthenticator();
+        assertFalse(authenticator.authenticate("admin", "wrongpassword"), "Invalid password should return false");
+    }
+
+    @Test
+    public void testNullCredentials() {
+        UserAuthenticator authenticator = new UserAuthenticator();
+        assertFalse(authenticator.authenticate(null, null), "Null credentials should return false");
+    }
+}
