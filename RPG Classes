@@ -1,0 +1,113 @@
+
+public class CharacterClass {
+
+    public String name;
+    public int health;
+
+    public CharacterClass(String name, int health) {
+        this.name = name;
+        this.health = health;
+    }
+
+    public void attack() {
+        System.out.println("Inflicts damage.");
+    }
+
+    public void heal() {
+        System.out.println("Increases health.");
+    }
+
+    public static void main(String[] args) {
+
+        Weapon sword = new Weapon("Excalibur", 500);
+        Weapon staff = new Weapon("Dark Staff", 600);
+        Warrior warrior = new Warrior("Arnav The Great", 250, sword);
+        Mage mage = new Mage("Jordan The Necromancer", 200, staff);
+
+        System.out.println(warrior.toString());
+        System.out.println();
+
+        warrior.attack();
+        warrior.heal();
+        System.out.println();
+
+        System.out.println(mage.toString());
+        System.out.println();
+
+        mage.attack();
+        mage.heal();
+    }
+}
+
+public class Warrior extends CharacterClass {
+
+    private Weapon weapon;
+
+    public Warrior(String name, int health, Weapon weapon) {
+        super(name, health);
+        this.weapon = weapon;
+    }
+
+    @Override
+    public void attack() {
+        weapon.durability = weapon.getDurability() - 1;
+        System.out.println("Swings " + weapon.getName() + ".");
+        System.out.println(weapon.getName() + "'s durability has become " + weapon.durability + ".");
+    }
+
+    @Override
+    public void heal() {
+        System.out.println("Drinks health potion.");
+    }
+
+    @Override
+    public String toString() {
+        return "Name: " + name + "\nHP: " + health + "\nWeapon: " + weapon.getName();
+    }
+}
+
+public class Mage extends CharacterClass {
+
+    private Weapon weapon;
+
+    public Mage(String name, int health, Weapon weapon) {
+        super(name, health);
+        this.weapon = weapon;
+    }
+
+    @Override
+    public void attack() {
+        weapon.durability = weapon.getDurability() - 1;
+        System.out.println("Conjures attack using " + weapon.getName() + ".");
+        System.out.println(weapon.getName() + "'s durability has become " + weapon.durability + ".");
+    }
+
+    @Override
+    public void heal() {
+        System.out.println("Casts healing spell.");
+    }
+
+    @Override
+    public String toString() {
+        return "Name: " + name + "\nHP: " + health + "\nWeapon: " + weapon.getName();
+    }
+}
+
+public class Weapon {
+
+    public String name;
+    public int durability;
+
+    public Weapon(String name, int durability) {
+        this.name = name;
+        this.durability = durability;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getDurability() {
+        return durability;
+    }
+}
