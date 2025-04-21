@@ -1,0 +1,30 @@
+
+interface Playable {
+
+    void play();
+    void pause();
+}
+
+class MusicPlayer implements Playable {
+
+    @Override
+    public void play() {
+        System.out.println("The song is playing.");
+    }
+
+    @Override
+    public void pause() {
+        System.out.println("The song has paused.");
+    }
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        MusicPlayer mp3 = new MusicPlayer();
+
+        mp3.play();
+        mp3.pause();
+    }
+}
