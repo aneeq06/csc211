@@ -1,0 +1,170 @@
+
+import java.util.*;
+
+abstract class Product {
+
+    String id, name;
+    double price;
+
+    Product(String id, String name, double price) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+    }
+
+    abstract String getCategory();
+}
+
+class Electronics extends Product {
+
+    String brand;
+
+    Electronics(String id, String name, double price, String brand) {
+        super(id, name, price);
+        this.brand = brand;
+    }
+
+    String getCategory() {
+        return "Electronics";
+    }
+}
+
+class Clothing extends Product {
+
+    String size;
+
+    Clothing(String id, String name, double price, String size) {
+        super(id, name, price);
+        this.size = size;
+    }
+
+    String getCategory() {
+        return "Clothing";
+    }
+}
+
+class Grocery extends Product {
+
+    double weight;
+
+    Grocery(String id, String name, double price, double weight) {
+        super(id, name, price);
+        this.weight = weight;
+    }
+
+    String getCategory() {
+        return "Grocery";
+    }
+}
+
+abstract class User {
+
+    String id, name;
+
+    User(String id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    abstract String getRole();
+}
+
+class Customer extends User {
+
+    Customer(String id, String name) {
+        super(id, name);
+    }
+
+    String getRole() {
+        return "Customer";
+    }
+}
+
+class Admin extends User {
+
+    Admin(String id, String name) {
+        super(id, name);
+    }
+
+    String getRole() {
+        return "Admin";
+    }
+}
+
+class Order {
+
+    String id;
+    Customer customer;
+    List<Product> items;
+
+    Order(String id, Customer customer, List<Product> items) {
+        this.id = id;
+        this.customer = customer;
+        this.items = new ArrayList<>(items);
+    }
+
+    double getTotal() {
+        return items.stream().mapToDouble(p -> p.price).sum();
+    }
+
+    double applyDiscount(double minTotal, double discount) {
+        double total = getTotal();
+        return total >= minTotal ? total * discount : 0;
+    }
+}
+
+class ECommercePlatform {
+
+    List<Product> products = new ArrayList<>();
+    List<User> users = new ArrayList<>();
+    List<Order> orders = new ArrayList<>();
+
+    void addProduct(Product p) {
+        products.add(p);
+    }
+
+    void addUser(User u) {
+        users.add(u);
+    }
+
+    void placeOrder(Order o) {
+        orders.add(o);
+    }
+
+    List<Product> filterByCategory(String category) {
+        return products.stream().filter(p -> p.getCategory().equals(category)).toList();
+    }
+
+    List<Product> search(String query) {
+        return products.stream().filter(p -> p.name.toLowerCase().contains(query.toLowerCase())).toList();
+    }
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+        ECommercePlatform shop = new ECommercePlatform();
+
+        shop.addProduct(new Electronics("E1", "Phone", 500, "Apple"));
+        shop.addProduct(new Clothing("C1", "Shirt", 25, "M"));
+        shop.addProduct(new Grocery("G1", "Apples", 5, 1.0));
+
+        Customer john = new Customer("U1", "John");
+        shop.addUser(john);
+
+        Order order = new Order("O1", john, List.of(
+                shop.products.get(0),
+                shop.products.get(1)
+        ));
+        shop.placeOrder(order);
+
+        System.out.println("Total: $" + order.getTotal());
+        System.out.println("Discount: $" + order.applyDiscount(100, 0.1));
+
+        System.out.println("\nElectronics:");
+        shop.filterByCategory("Electronics").forEach(p -> System.out.println(p.name));
+
+        System.out.println("\nSearch 'sh':");
+        shop.search("sh").forEach(p -> System.out.println(p.name));
+    }
+}
